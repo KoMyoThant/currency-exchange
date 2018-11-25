@@ -96,13 +96,13 @@ public class MainActivity extends AppCompatActivity implements CurrencyRateView 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onErrorInvokingAPI(RestApiEvents.ErrorInvokingAPIEvent event) {
-//        Snackbar snackbar = Snackbar.make(rvCurrencyRateList, event.getErrorMsg(), Snackbar.LENGTH_INDEFINITE);
-//        snackbar.setAction("Dismiss", new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                v.setVisibility(View.GONE);
-//            }
-//        }).show();
+        Snackbar snackbar = Snackbar.make(rvCurrencyRateList, event.getErrorMsg(), Snackbar.LENGTH_INDEFINITE);
+        snackbar.setAction("Dismiss", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                v.setVisibility(View.GONE);
+            }
+        }).show();
         swipeRefreshLayout.setRefreshing(false);
         vpCurrencyRateList.setEmptyData("No Internet Connection.");
     }

@@ -3,11 +3,6 @@ package com.ps.currencyexchange.data.vos;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
-import android.arch.persistence.room.TypeConverters;
-
-import com.google.gson.annotations.SerializedName;
-
-import io.reactivex.annotations.NonNull;
 
 /**
  * Created by pyaesone on 11/25/18

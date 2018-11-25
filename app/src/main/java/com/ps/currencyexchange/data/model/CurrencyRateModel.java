@@ -86,8 +86,8 @@ public class CurrencyRateModel extends BaseModel {
 
                             Log.d(CurrencyExchangeApp.TAG, "currencyRateList size onNext : " + currencyRateList.getValue().size());
 
-//                        long[] insertedIds = mAppDatabase.currencyRateDao().insertCurrencyRates(currencyRateVOList.toArray(new CurrencyRateVO[0]));
-//                        Log.d(CurrencyExchangeApp.TAG, "insertedIds currency rates : " + insertedIds.length);
+                        long[] insertedIds = mAppDatabase.currencyRateDao().insertCurrencyRates(currencyRateVOList.toArray(new CurrencyRateVO[0]));
+                        Log.d(CurrencyExchangeApp.TAG, "insertedIds currency rates : " + insertedIds.length);
                         }
 
                         @Override
