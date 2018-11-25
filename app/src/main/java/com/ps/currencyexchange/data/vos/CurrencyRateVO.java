@@ -24,6 +24,17 @@ public class CurrencyRateVO {
     @ColumnInfo(name = "currency_amount")
     private String currencyAmount;
 
+    @ColumnInfo(name = "currency_time")
+    private String time;
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
     public void set_id(long _id) {
         this._id = _id;
     }

@@ -59,6 +59,9 @@ dependencies {
     implementation group: 'io.reactivex.rxjava2', name: 'rxjava', version: '2.1.9'
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.0'
 
+    // EventBus
+    implementation 'org.greenrobot:eventbus:3.1.1'
+
     implementation 'com.github.bumptech.glide:glide:4.4.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.4.0'
 }

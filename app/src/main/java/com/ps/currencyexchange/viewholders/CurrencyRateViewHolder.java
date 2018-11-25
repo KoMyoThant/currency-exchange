@@ -14,9 +14,6 @@ import butterknife.BindView;
  */
 public class CurrencyRateViewHolder extends BaseViewHolder<CurrencyRateVO> {
 
-//    @BindView(R.id.tv_time)
-//    TextView tvTime;
-
     @BindView(R.id.tv_country)
     TextView tvCountry;
 

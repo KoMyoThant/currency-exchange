@@ -17,10 +17,12 @@ import java.util.List;
  */
 public class CurrencyRatePresenter extends BasePresenter<CurrencyRateView> implements CurrencyRateItemDelegate {
 
+    private Context mContext;
     private CurrencyRateModel mCurrencyRateModel;
     private LifecycleOwner mLifecycleOwner;
 
-    public CurrencyRatePresenter(LifecycleOwner lifecycleOwner, CurrencyRateModel currencyRateModel) {
+    public CurrencyRatePresenter(Context context,LifecycleOwner lifecycleOwner, CurrencyRateModel currencyRateModel) {
+        mContext = context;
         mLifecycleOwner = lifecycleOwner;
         mCurrencyRateModel = currencyRateModel;
     }
@@ -39,7 +41,7 @@ public class CurrencyRatePresenter extends BasePresenter<CurrencyRateView> imple
                     mView.displayCurrencyRateList(currencyRateList);
                 } else {
                     mView.refreshCurrencyRateList();
-                    mCurrencyRateModel.startLoadingCurrencyRate().observe(mLifecycleOwner, new Observer<List<CurrencyRateVO>>() {
+                    mCurrencyRateModel.startLoadingCurrencyRate(mContext).observe(mLifecycleOwner, new Observer<List<CurrencyRateVO>>() {
                         @Override
                         public void onChanged(@Nullable List<CurrencyRateVO> currencyRateVOS) {
                             mView.displayCurrencyRateList(currencyRateVOS);
@@ -51,7 +53,7 @@ public class CurrencyRatePresenter extends BasePresenter<CurrencyRateView> imple
     }
 
     public void onLoadMoreCurrencyRaet(Context context) {
-        mCurrencyRateModel.loadMoreCurrencyRate();
+        mCurrencyRateModel.loadMoreCurrencyRate(context);
     }
 
     @Override

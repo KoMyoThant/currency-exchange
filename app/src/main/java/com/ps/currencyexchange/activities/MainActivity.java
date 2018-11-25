@@ -6,6 +6,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.View;
 import android.widget.TextView;
 
 import com.ps.currencyexchange.R;
@@ -15,9 +16,16 @@ import com.ps.currencyexchange.components.rvset.SmartRecyclerView;
 import com.ps.currencyexchange.components.rvset.SmartScrollListener;
 import com.ps.currencyexchange.data.model.CurrencyRateModel;
 import com.ps.currencyexchange.data.vos.CurrencyRateVO;
+import com.ps.currencyexchange.events.RestApiEvents;
 import com.ps.currencyexchange.mvp.presenters.CurrencyRatePresenter;
 import com.ps.currencyexchange.mvp.views.CurrencyRateView;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -57,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements CurrencyRateView 
         currencyRateModel = ViewModelProviders.of(this).get(CurrencyRateModel.class);
         currencyRateModel.initDatabase(getBaseContext());
 
-        mPresenter = new CurrencyRatePresenter(this, currencyRateModel);
+        mPresenter = new CurrencyRatePresenter(getApplicationContext(),this, currencyRateModel);
         mPresenter.onCreate(this);
 
         vpCurrencyRateList.setEmptyData("Loading...");
@@ -70,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements CurrencyRateView 
         mSmartScrollListener = new SmartScrollListener(new SmartScrollListener.ControllerSmartScroll() {
             @Override
             public void onListEndReached() {
-                Snackbar.make(rvCurrencyRateList, "Loading data...", Snackbar.LENGTH_LONG).show();
+//                Snackbar.make(rvCurrencyRateList, "Loading data...", Snackbar.LENGTH_LONG).show();
                 mPresenter.onLoadMoreCurrencyRaet(getApplicationContext());
             }
         });
@@ -86,10 +94,24 @@ public class MainActivity extends AppCompatActivity implements CurrencyRateView 
 
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onErrorInvokingAPI(RestApiEvents.ErrorInvokingAPIEvent event) {
+//        Snackbar snackbar = Snackbar.make(rvCurrencyRateList, event.getErrorMsg(), Snackbar.LENGTH_INDEFINITE);
+//        snackbar.setAction("Dismiss", new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                v.setVisibility(View.GONE);
+//            }
+//        }).show();
+        swipeRefreshLayout.setRefreshing(false);
+        vpCurrencyRateList.setEmptyData("No Internet Connection.");
+    }
+
     @Override
     public void onStart() {
         super.onStart();
         mPresenter.onStart();
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -108,6 +130,7 @@ public class MainActivity extends AppCompatActivity implements CurrencyRateView 
     public void onStop() {
         super.onStop();
         mPresenter.onStop();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -120,10 +143,20 @@ public class MainActivity extends AppCompatActivity implements CurrencyRateView 
     public void displayCurrencyRateList(List<CurrencyRateVO> currencyRateList) {
         currencyRateAdapter.setNewData(currencyRateList);
         swipeRefreshLayout.setRefreshing(false);
+
+        if (currencyRateList != null && !currencyRateList.isEmpty() && currencyRateList.get(0).getTime() != null && !currencyRateList.get(0).getTime().isEmpty()) {
+            Timestamp timestamp = new Timestamp(Long.parseLong(currencyRateList.get(0).getTime()));
+            Date date = timestamp;
+            bindData(date.toString().split("\\.")[0]);
+        }
     }
 
     @Override
     public void refreshCurrencyRateList() {
         swipeRefreshLayout.setRefreshing(true);
+    }
+
+    private void bindData(String time) {
+        tvTime.setText("Time: " + time);
     }
 }
