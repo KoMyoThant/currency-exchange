@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:gravity="center">
+
+    <View
+        android:id="@+id/view_separator"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="@dimen/margin_medium"
+        android:background="@color/grey_goose_lighter" />
+
+    <TextView
+        android:id="@+id/tv_country"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignBaseline="@id/tv_currency_amount"
+        android:layout_below="@id/view_separator"
+        android:layout_marginLeft="@dimen/margin_medium"
+        android:layout_toLeftOf="@id/tv_currency_amount"
+        android:gravity="center_vertical"
+        android:text="USD"
+        android:textColor="@color/black_full"
+        android:textSize="@dimen/text_regular_2x" />
+
+    <TextView
+        android:id="@+id/tv_currency_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/view_separator"
+        android:layout_marginLeft="@dimen/margin_medium"
+        android:layout_marginRight="@dimen/margin_medium"
+        android:gravity="center_vertical"
+        android:text="1,500"
+        android:textColor="@color/black_full"
+        android:textSize="@dimen/text_heading_1x" />
+</RelativeLayout>
