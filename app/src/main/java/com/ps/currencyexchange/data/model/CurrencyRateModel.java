@@ -81,7 +81,7 @@ public class CurrencyRateModel extends BaseModel {
                                 currencyRate.setCurrencyAmount(currencyRateMap.get(countryCodeList.get(index)));
                                 currencyRateVOList.add(currencyRate);
                             }
-                            currencyRateList.setValue(currencyRateVOList);
+                             currencyRateList.setValue(currencyRateVOList);
 //                        configUtils.savePageIndex(1);
 
                             Log.d(CurrencyExchangeApp.TAG, "currencyRateList size onNext : " + currencyRateList.getValue().size());

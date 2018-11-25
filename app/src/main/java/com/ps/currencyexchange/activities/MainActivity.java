@@ -27,6 +27,8 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.sql.Timestamp;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -148,6 +150,11 @@ public class MainActivity extends AppCompatActivity implements CurrencyRateView 
 
     @Override
     public void displayCurrencyRateList(List<CurrencyRateVO> currencyRateList) {
+        Collections.sort(currencyRateList, new Comparator<CurrencyRateVO>() {
+            public int compare(CurrencyRateVO v1, CurrencyRateVO v2) {
+                return v1.getCountryCode().compareTo(v2.getCountryCode());
+            }
+        });
         currencyRateAdapter.setNewData(currencyRateList);
         swipeRefreshLayout.setRefreshing(false);
 
