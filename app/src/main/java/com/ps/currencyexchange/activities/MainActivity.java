@@ -1,6 +1,8 @@
 package com.ps.currencyexchange.activities;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
+import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -52,6 +54,11 @@ public class MainActivity extends AppCompatActivity implements CurrencyRateView 
     private CurrencyRateModel currencyRateModel;
 
     private CurrencyRatePresenter mPresenter;
+
+    public static Intent newIntent(Context context){
+        Intent intent = new Intent(context,MainActivity.class);
+        return intent;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
