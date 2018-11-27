@@ -159,7 +159,7 @@ public class MainActivity extends AppCompatActivity implements CurrencyRateView 
         swipeRefreshLayout.setRefreshing(false);
 
         if (currencyRateList != null && !currencyRateList.isEmpty() && currencyRateList.get(0).getTime() != null && !currencyRateList.get(0).getTime().isEmpty()) {
-            Timestamp timestamp = new Timestamp(Long.parseLong(currencyRateList.get(0).getTime()));
+            Timestamp timestamp = new Timestamp(Long.parseLong(currencyRateList.get(0).getTime()) * 1000);
             Date date = timestamp;
             bindData(date.toString().split("\\.")[0]);
         }
